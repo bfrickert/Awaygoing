@@ -63,5 +63,5 @@ joind.not.awaygoing$rank <- c(1:nrow(joind.not.awaygoing))
 
 map<- get_map(location = 'US', zoom = 4)
 ggmap(map)
-TC <-ggmap(map)+geom_point(data=joind.not.awaygoing,alpha = .7, aes(x=long, y=lat,size =pop, fill=rank))+ggtitle("Places Rated Climate")
+TC <-ggmap(map)+geom_point(data=joind.not.awaygoing,alpha = .7, aes(x=long, y=lat,size =pop, fill=rank))+ggtitle("Unspoiled Cities")
 TC
