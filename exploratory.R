@@ -1,13 +1,12 @@
-library(tourr)
-library(dplyr)
-library(caret)
+library(pacman)
+p_load(tourr,dplyr,caret)
 
 place.names <- read.table('data/place.names.tsv',sep='\t',stringsAsFactors = F, header=T)
 names(place.names)[1] <- 'casenum'
 joind <-inner_join(place.names, places, by='casenum')
 rm(place.names)
 joind$is.awaygoing <- 0
-fit <- kmeans(joind[,4:12], 15, nstart = 1, algorithm='Lloyd', iter.max = 100) # 5 cluster solution
+fit <- kmeans(joind[,4:12], 15, nstart = 1, algorithm='Lloyd', iter.max = 100)
 
 joind$cluster <- fit$cluster
 
@@ -60,8 +59,33 @@ joind.not.awaygoing <- arrange(joind[15:329,], desc(prob))
 joind.not.awaygoing$rank <- c(1:nrow(joind.not.awaygoing))
 
 
+earth.dist <- function (long1, lat1, long2, lat2)
+{
+  rad <- pi/180
+  a1 <- lat1 * rad
+  a2 <- long1 * rad
+  b1 <- lat2 * rad
+  b2 <- long2 * rad
+  dlon <- b2 - a2
+  dlat <- b1 - a1
+  a <- (sin(dlat/2))^2 + cos(a1) * cos(b1) * (sin(dlon/2))^2
+  c <- 2 * atan2(sqrt(a), sqrt(1 - a))
+  R <- 6378.145
+  d <- R * c
+  return(d)
+}
+
 
 map<- get_map(location = 'US', zoom = 4)
 ggmap(map)
-TC <-ggmap(map)+geom_point(data=joind.not.awaygoing,alpha = .7, aes(x=long, y=lat,size =pop, fill=rank))+ggtitle("Unspoiled Cities")
-TC
+sf <- filter(joind, city=='San Francisco' | city=='Oklahoma City')
+dc <- filter(joind, city=='Washington' | city=='Oklahoma City')
+ggmap(map)+geom_point(data=joind.not.awaygoing,alpha = .7, aes(x=long, y=lat,size =pop, fill=rank))+ggtitle("Unspoiled Cities") +
+  geom_point(data=sf, aes(x=long, y=lat),color="black") + geom_line(data=sf, aes(x=long, y=lat), color="black")+
+  geom_point(data=dc, aes(x=long, y=lat),color="black") + geom_line(data=dc, aes(x=long, y=lat), color="orange")
+
+sf.1 <- filter(joind, city=='San Francisco')
+dc.1 <- filter(joind, city=='Washington')
+dul.1 <- filter(joind, city=='Oklahoma City')
+earth.dist(sf.1$long, sf.1$lat, dul.1$long, dul.1$lat)
+earth.dist(dc.1$long, dc.1$lat, dul.1$long, dul.1$lat)
