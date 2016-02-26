@@ -27,7 +27,7 @@ shinyServer(function(input, output) {
     sf <- filter(joind, city=='San Francisco' | city==input$City)
     dc <- filter(joind, city=='Washington' | city==input$City)
     ggmap(map)+geom_point(data=joind.not.awaygoing,alpha = .7, aes(x=long, y=lat,size =pop, fill=rank))+
-      ggtitle("Unspoiled Awaygoing Cities") +
+      ggtitle("Unspoiled Potential Awaygoing Cities") +
       geom_point(data=sf, aes(x=long, y=lat),color="black") + geom_line(data=sf, aes(x=long, y=lat), color="black", size=2)+
       geom_point(data=dc, aes(x=long, y=lat),color="black") + geom_line(data=dc, aes(x=long, y=lat), color="orange", size=2) +
       theme(axis.line=element_blank(),axis.text.x=element_blank(),
@@ -41,12 +41,10 @@ shinyServer(function(input, output) {
   
   output$summary <- renderText({
     "hello"
-    #summary(filter(joind, city==input$City))
   })
   
-  output$table <- renderText({
-    "Mork"
-    #summary(filter(joind, city==input$City))
+  output$random.forest <- renderDataTable({
+    random.forest
   })
   
 })

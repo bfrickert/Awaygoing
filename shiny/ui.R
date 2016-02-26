@@ -15,9 +15,9 @@ shinyUI(
                       ),
                     mainPanel(
                         tabsetPanel(
-                          tabPanel("Information", textOutput("summary")), 
-                          tabPanel("Map", plotOutput('map',width="500px", heigh='500px')),
-                          tabPanel("Cluster", textOutput("table"))
+                          tabPanel("City Rankings", textOutput("summary")), 
+                          tabPanel("US Map", plotOutput('map',width="500px", heigh='500px')),
+                          tabPanel("Predicted Awaygoing Cities", dataTableOutput("random.forest"))
                         )
                       #plotOutput('map',width="500px", heigh='500px')
                       )

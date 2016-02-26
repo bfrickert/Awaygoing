@@ -1,6 +1,8 @@
 library(pacman)
 p_load(tourr,dplyr,caret)
 
+random.forest <- read.table('data/random.forest.tsv', sep='\t', stringsAsFactors = T, header = T)
+
 ######################################
 # Create Data Set with Clusters
 ######################################

@@ -31,7 +31,7 @@ rm(awaygoing, not.awaygoing)
 
 pred <- predict(fit, test[,c(4:12,15,18)])
 test$pred <- pred
-write.table(select(filter(test, pred ==1), city, state), 'shiny/data/random.forest.tsv', 
+write.table(select(filter(test, pred ==1), id, city, state), 'shiny/data/random.forest.tsv', 
             sep='\t', row.names = F)
 
 
