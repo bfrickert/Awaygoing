@@ -1,5 +1,25 @@
 library(shiny)
+source('helper.R')
 
-shinyUI(fluidPage(theme='bootstrap.css'
-                  
+shinyUI(
+  fixedPage(theme='bootstrap.css',
+            titlePanel("Awaygoing Data Analytics"),
+            imageOutput('banner'),
+                  br(),br(),br(),br(),br(),
+                  sidebarLayout(fluid=F,
+                    sidebarPanel(fluid=F,
+                      selectInput('City','',
+                                  c(arrange(joind.not.awaygoing, city)$city), selected='St. Louis'),
+                      imageOutput('tampa'),
+                      br(),br(),br(),br(),br(), br(),br(),br(),br(),br()
+                      ),
+                    mainPanel(
+                        tabsetPanel(
+                          tabPanel("Information", textOutput("summary")), 
+                          tabPanel("Map", plotOutput('map',width="500px", heigh='500px')),
+                          tabPanel("Cluster", textOutput("table"))
+                        )
+                      #plotOutput('map',width="500px", heigh='500px')
+                      )
+                    )
 ))
