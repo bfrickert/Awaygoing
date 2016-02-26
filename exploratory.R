@@ -23,13 +23,16 @@ hist(not.awaygoing$cluster, breaks=15)
 select(awaygoing, city, cluster)
 arrange(select(filter(awaygoing, cluster %in% c(1,4,10)), city, state, cluster), cluster)
 
+
 train <- rbind(awaygoing, not.awaygoing[1:14,])
 test <- not.awaygoing[15:nrow(not.awaygoing),]
-fit <- train(train[,c(4:12,15,18)], train$is.awaygoing, method='rf')
+fit <- train(train[,c(4:12,15,18)], factor(train$is.awaygoing), method='rf')
+rm(awaygoing, not.awaygoing)
 
 pred <- predict(fit, test[,c(4:12,15,18)])
-test$pred <- round(pred)
-select(filter(test, pred ==1), city, state)
+test$pred <- pred
+write.table(select(filter(test, pred ==1), city, state), 'shiny/data/random.forest.tsv', 
+            sep='\t', row.names = F)
 
 
 d <- dist(joind[,c(4:12,15)], method = "euclidean") # distance matrix
