@@ -86,7 +86,6 @@ apply(select(joind.not.awaygoing, city, state), 1, function(x){
   create.map(x[1], x[2])
 })
 
-
 dist.to.sf <- function(c, s){
   sf.1 <- filter(joind, city=='San Francisco')
   dul.1 <- filter(joind, city==c & state==s)
@@ -105,8 +104,37 @@ joind.not.awaygoing$dc.dists <- apply(select(joind.not.awaygoing, city, state), 
   dist.to.dc(x[1], x[2])
 })
 
+joind.not.awaygoing <- arrange(joind.not.awaygoing, desc(climate))
+joind.not.awaygoing$climate.rank <- 1:nrow(joind.not.awaygoing)
 
-  
+joind.not.awaygoing <- arrange(joind.not.awaygoing, desc(econ))
+joind.not.awaygoing$econ.rank <- 1:nrow(joind.not.awaygoing)
+
+joind.not.awaygoing <- arrange(joind.not.awaygoing, crime)
+joind.not.awaygoing$crime.rank <- 1:nrow(joind.not.awaygoing)
+
+joind.not.awaygoing <- arrange(joind.not.awaygoing, housingcost)
+joind.not.awaygoing$housingcost.rank <- 1:nrow(joind.not.awaygoing)
+
+joind.not.awaygoing <- arrange(joind.not.awaygoing, desc(hlthcare))
+joind.not.awaygoing$hlthcare.rank <- 1:nrow(joind.not.awaygoing)
+
+joind.not.awaygoing <- arrange(joind.not.awaygoing, desc(transp))
+joind.not.awaygoing$transp.rank <- 1:nrow(joind.not.awaygoing)
+
+joind.not.awaygoing <- arrange(joind.not.awaygoing, desc(recreat))
+joind.not.awaygoing$recreat.rank <- 1:nrow(joind.not.awaygoing)
+
+joind.not.awaygoing <- arrange(joind.not.awaygoing, desc(educ))
+joind.not.awaygoing$educ.rank <- 1:nrow(joind.not.awaygoing)
+
+joind.not.awaygoing <- arrange(joind.not.awaygoing, desc(arts))
+joind.not.awaygoing$arts.rank <- 1:nrow(joind.not.awaygoing)
+
+joind.not.awaygoing <- arrange(joind.not.awaygoing, desc(pop))
+joind.not.awaygoing$pop.rank <- 1:nrow(joind.not.awaygoing)
+
+
   
   
   
