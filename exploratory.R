@@ -135,9 +135,34 @@ joind.not.awaygoing <- arrange(joind.not.awaygoing, desc(pop))
 joind.not.awaygoing$pop.rank <- 1:nrow(joind.not.awaygoing)
 
 
+joind.train <- joind
+joind.newdata <- filter(joind, is.awaygoing == 0)
+
+model <- glm(formula= is.awaygoing ~ ., data=joind.train[,c(4:12,17)], family=binomial)
+p <- predict(model, joind, type="response")
+summary(model)
+
+joind$prob <- p
+joind.not.awaygoing <- arrange(joind[15:329,], desc(prob))
+joind.not.awaygoing$rank <- c(1:nrow(joind.not.awaygoing))
   
+hate <- read.socrata('https://splc.demo.socrata.com/dataset/Active-Hate-Groups-in-2014/hzr8-i6je')
+
+find.hate.groups <- function(city, state, lat, long){
+  hate.groups <- apply(select(hate, Name, Latitude, Longitude),1, function(x){
+    dist <- earth.dist(lat, long, Latitude, Longitude) <=100
+    
+
+  })
   
+}
+
+apply(select(joind.not.awaygoing, city, state, lat, long), 1, function(x){
   
+})
+
+
+
   hist(awaygoing$cluster, breaks=15)
   hist(not.awaygoing$cluster, breaks=15)
   select(awaygoing, city, cluster)
