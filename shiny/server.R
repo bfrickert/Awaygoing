@@ -60,8 +60,17 @@ shinyServer(function(input, output) {
   
   output$cluster <- renderUI({
     df <- filter(joind.not.awaygoing, paste(city, state, sep=', ') == input$City)
-    similars <- filter(joind.not.awaygoing, cluser = df$cluster)
-    HTML()
+    similars <- filter(joind.not.awaygoing, cluster == df$cluster & !paste(city, state, sep=', ') == input$City)
+    similars.output <- apply(arrange(select(similars, city, state), city), 1, function(x){
+      print(x[1])
+      return(paste(x[1], ', ', x[2], '<br />', sep=''))
+    })
+    HTML(unlist(similars.output))
+  })
+  output$cluster.text <- renderUI({
+    HTML(paste("<h5><i>K-Means Clustering</i> has identified
+                                        the cities below as being similar to ",
+        input$City, ".</h5>", sep=''))
   })
   
   output$random.forest <- renderDataTable({

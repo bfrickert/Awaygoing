@@ -2,3 +2,6 @@ body {
     background-image: url(/home/ubuntu/awaygoing/shiny/viz/tampa.slice.jpg");
     background-color: white;
 }
+table {
+    border-collapse:collapse;
+}
