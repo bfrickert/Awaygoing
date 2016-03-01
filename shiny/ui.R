@@ -16,7 +16,7 @@ shinyUI(
                       ),
                     mainPanel(
                         tabsetPanel(
-                          tabPanel("City Rankings", textOutput("summary")), 
+                          tabPanel("City Rankings", uiOutput("climate")), 
                           tabPanel("US Map", imageOutput('map')),
                           tabPanel("Predicted Awaygoing Cities", dataTableOutput("random.forest"))
                         )
