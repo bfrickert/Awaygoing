@@ -1,5 +1,5 @@
 library(pacman)
-p_load(tourr,dplyr,caret, ggplot2, ggmap,plyr)
+p_load(tourr,dplyr,caret, ggplot2, ggmap,plyr, RSocrata)
 
 # Get Places Rated data and join it to cities and states
 place.names <- read.table('data/place.names.tsv',sep='\t',stringsAsFactors = F, header=T)
@@ -182,3 +182,4 @@ hate.per.city <- ldply(apply(select(joind.not.awaygoing, city, state, lat, long)
 }))
 
 write.table(hate.per.city, 'shiny/data/hate.per.city.tsv', sep='\t', row.names = F)
+

@@ -25,7 +25,7 @@ shinyServer(function(input, output) {
     
   }, deleteFile = FALSE)
   
-  output$climate <- renderUI({
+  output$rankings <- renderUI({
     df <- filter(joind.not.awaygoing, paste(city, state, sep=', ') == input$City)
     hate.df <- filter(hate.per.city, city == input$City)
     HTML(paste("<h3>Awaygoing Suitability Ranking: <span style=\"color:", kpi.color(df$rank), "\">",
@@ -56,6 +56,12 @@ shinyServer(function(input, output) {
                nrow(hate.df), " hate groups</span></strong> operating within 100 miles of ", input$City,
               ".</h5>", sep='')
     )
+  })
+  
+  output$cluster <- renderUI({
+    df <- filter(joind.not.awaygoing, paste(city, state, sep=', ') == input$City)
+    similars <- filter(joind.not.awaygoing, cluser = df$cluster)
+    HTML()
   })
   
   output$random.forest <- renderDataTable({
