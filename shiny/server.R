@@ -53,8 +53,9 @@ shinyServer(function(input, output) {
          paste("<h5>Distance from Washington, DC: <span style=\"color:green\">",
                round(df$dc.dists, 2), " miles</span></h5>", sep=''),
          paste("<h5>According to the <strong>Southern Poverty Law Center</strong>, as of 2014, there were <strong><span style=\"color:red\">",
-               nrow(hate.df), " hate groups</span></strong> operating within 100 miles of ", input$City,
-              ".</h5>", sep='')
+               nrow(hate.df), " hate groups</span></strong> operating within 100 miles of 
+               <strong>", input$City,
+              "</strong>.</h5>", sep='')
     )
   })
   
@@ -62,15 +63,15 @@ shinyServer(function(input, output) {
     df <- filter(joind.not.awaygoing, paste(city, state, sep=', ') == input$City)
     similars <- filter(joind.not.awaygoing, cluster == df$cluster & !paste(city, state, sep=', ') == input$City)
     similars.output <- apply(arrange(select(similars, city, state), city), 1, function(x){
-      print(x[1])
       return(paste(x[1], ', ', x[2], '<br />', sep=''))
     })
-    HTML(unlist(similars.output))
+    similars.output <- similars.output[sample(1:length(similars.output),min(3, length(similars.output)))]
+    HTML(paste('<strong>',unlist(similars.output), '</strong>',sep=''))
   })
+    
   output$cluster.text <- renderUI({
-    HTML(paste("<h5><i>K-Means Clustering</i> has identified
-                                        the cities below as being similar to ",
-        input$City, ".</h5>", sep=''))
+    HTML(paste("<h5><i>K-Means Clustering</i> has identified cities that are similar to <strong>",
+        input$City, "</strong>. Among them are:</h5>", sep=''))
   })
   
   output$random.forest <- renderDataTable({
