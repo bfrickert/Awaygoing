@@ -1,3 +1,5 @@
+library(dplyr)
+
 random.forest <- read.table('data/random.forest.tsv', sep='\t', stringsAsFactors = T, header = T)
 joind.not.awaygoing <- read.table('data/joind.not.awaygoing.tsv', sep='\t', stringsAsFactors = T, header = T)
 hate.per.city <- read.table('data/hate.per.city.tsv', sep='\t', stringsAsFactors = F, header=T)
