@@ -23,7 +23,7 @@ shinyServer(function(input, output) {
   output$map.text <- renderUI({
     df <- filter(joind.not.awaygoing, city.full == input$City)
     
-    HTML(paste("<h5><strong>", input$City, "</strong> (population <strong>", prettyNum(df$pop,big.mark=",",scientific=FALSE), "</strong>)is <strong><span style=\"color:green\">",
+    HTML(paste("<h5><strong>", input$City, "</strong> (population <strong>", prettyNum(df$pop,big.mark=",",scientific=FALSE), "</strong>) is <strong><span style=\"color:green\">",
                round(df$dc.dists, 2), " miles</span></strong> from <strong>Washington, DC</strong> and 
                <strong><span style=\"color:green\">",
                round(df$sf.dists, 2), " miles</span></strong> from <strong>San Francisco</strong>.</h5>", sep=''))
