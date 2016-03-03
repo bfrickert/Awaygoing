@@ -16,6 +16,19 @@ shinyServer(function(input, output) {
     
   }, deleteFile = FALSE)
   
+  output$city.name <- renderUI({
+    HTML(paste("<h2><strong>", input$City, "</strong></h2>"))
+  })
+  
+  output$map.text <- renderUI({
+    df <- filter(joind.not.awaygoing, city.full == input$City)
+    
+    HTML(paste("<h5><strong>", input$City, "</strong> (population <strong>", prettyNum(df$pop,big.mark=",",scientific=FALSE), "</strong>)is <strong><span style=\"color:green\">",
+               round(df$dc.dists, 2), " miles</span></strong> from <strong>Washington, DC</strong> and 
+               <strong><span style=\"color:green\">",
+               round(df$sf.dists, 2), " miles</span></strong> from <strong>San Francisco</strong>.</h5>", sep=''))
+    })
+  
   output$map <- renderImage({
     file.name <- strsplit(input$City, ', ')
     list(src = paste('./viz/maps/', file.name[[1]][1],'.', file.name[[1]][2], '.png', sep=''),
@@ -74,11 +87,20 @@ shinyServer(function(input, output) {
         input$City, "</strong>. Among them are:</h5>", sep=''))
   })
   
+  output$rf.text <- renderUI({
+    HTML("<h5>These lucky cities were predicted by a random forest machine learning algorithm to be <strong>future Awaygoing destinations</strong>.
+         Featured along with each city is it's <i>Awaygoing Suitability Ranking</i>. You might notice that some of these predicted destinations
+         aren't exactly '<i>suitable</i>'. This is a function of only being able to train the algorithm on a small subset of the data.<br /><br />Therefore,
+         one is well advised to factor suitability <strong>AND</strong> its appearance here when choosing a destination.</h5>")
+  })
+  
   output$random.forest <- renderUI({
     rf.output <- apply(random.forest, 1, function(x){
-      return(paste("<strong>", x[1], ', ', x[2], '</strong><br />', sep=''))
+      df <- filter(joind.not.awaygoing, city.full == paste(x[1], x[2], sep=', '))
+      
+      return(paste("<strong>", x[1], ', ', x[2], '</strong> (<strong><span style=\'color:', kpi.color(df$rank), "'>", df$rank, '</span></strong>)<br />', sep=''))
     })
-    HTML(unlist(rf.output))
+    HTML(unlist(sort(rf.output)))
   })
   
 })
