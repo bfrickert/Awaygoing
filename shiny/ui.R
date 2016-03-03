@@ -16,12 +16,13 @@ shinyUI(
                       ),
                     mainPanel(
                         tabsetPanel(
-                          tabPanel("City Rankings", uiOutput("rankings"), 
+                          tabPanel("City Rankings", uiOutput("city.name"), uiOutput("rankings"), 
                                    tags$h3('Similar Cities'),
                                    uiOutput('cluster.text'),
                                    uiOutput('cluster')), 
-                          tabPanel("US Map", imageOutput('map')),
-                          tabPanel("Predicted Awaygoing Cities", uiOutput("random.forest"))
+                          tabPanel("US Map", uiOutput('map.text'), tags$hr(), imageOutput('map')),
+                          tabPanel("Predicted Awaygoing Cities", HTML("<h2><strong>Awaygoing Cities of the Future</strong></h2>"), uiOutput("rf.text"), 
+                                   tags$hr(), uiOutput("random.forest"), tags$br(), tags$br())
                         )
                       )
                     )
