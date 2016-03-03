@@ -8,7 +8,7 @@ shinyUI(
                   br(),br(),br(),br(),br(),
                   sidebarLayout(fluid=F,
                      sidebarPanel(fluid=F,
-                      selectInput('City','',
+                      selectInput('City','Potential Awaygoing Destination',
                                   with(arrange(joind.not.awaygoing, city), 
                                        paste(city, state, sep=', ')), selected='St. Louis, MO-IL'),
                       imageOutput('tampa'),
