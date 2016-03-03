@@ -26,7 +26,7 @@ shinyServer(function(input, output) {
   }, deleteFile = FALSE)
   
   output$rankings <- renderUI({
-    df <- filter(joind.not.awaygoing, paste(city, state, sep=', ') == input$City)
+    df <- filter(joind.not.awaygoing, city.full == input$City)
     hate.df <- filter(hate.per.city, city == input$City)
     HTML(paste("<h3>Awaygoing Suitability Ranking: <span style=\"color:", kpi.color(df$rank), "\">",
                df$rank, "</span></h3>", sep=''),
@@ -60,8 +60,8 @@ shinyServer(function(input, output) {
   })
   
   output$cluster <- renderUI({
-    df <- filter(joind.not.awaygoing, paste(city, state, sep=', ') == input$City)
-    similars <- filter(joind.not.awaygoing, cluster == df$cluster & !paste(city, state, sep=', ') == input$City)
+    df <- filter(joind.not.awaygoing, city.full == input$City)
+    similars <- filter(joind.not.awaygoing, cluster == df$cluster & !city.full == input$City)
     similars.output <- apply(arrange(select(similars, city, state), city), 1, function(x){
       return(paste(x[1], ', ', x[2], '<br />', sep=''))
     })
@@ -74,8 +74,11 @@ shinyServer(function(input, output) {
         input$City, "</strong>. Among them are:</h5>", sep=''))
   })
   
-  output$random.forest <- renderDataTable({
-    random.forest
+  output$random.forest <- renderUI({
+    rf.output <- apply(random.forest, 1, function(x){
+      return(paste("<strong>", x[1], ', ', x[2], '</strong><br />', sep=''))
+    })
+    HTML(unlist(rf.output))
   })
   
 })

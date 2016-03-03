@@ -21,7 +21,7 @@ shinyUI(
                                    uiOutput('cluster.text'),
                                    uiOutput('cluster')), 
                           tabPanel("US Map", imageOutput('map')),
-                          tabPanel("Predicted Awaygoing Cities", dataTableOutput("random.forest"))
+                          tabPanel("Predicted Awaygoing Cities", uiOutput("random.forest"))
                         )
                       )
                     )
