@@ -7,12 +7,12 @@ shinyUI(
             imageOutput('banner'),
                   br(),br(),br(),br(),br(),
                   sidebarLayout(fluid=F,
-                    sidebarPanel(fluid=F,
+                     sidebarPanel(fluid=F,
                       selectInput('City','',
                                   with(arrange(joind.not.awaygoing, city), 
                                        paste(city, state, sep=', ')), selected='St. Louis, MO-IL'),
                       imageOutput('tampa'),
-                      br(),br(),br(),br(),br(), br(),br(),br(),br(),br()
+                      br(),br(),br(),br(),br()
                       ),
                     mainPanel(
                         tabsetPanel(
