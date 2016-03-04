@@ -3,12 +3,11 @@ source('helper.R')
 
 shinyUI(
   fixedPage(theme='bootstrap.css',
-            titlePanel("Awaygoing Data Analytics"),
+            tags$h1("Awaygoing Data Analytics"),
             imageOutput('banner'),
                   br(),br(),br(),br(),br(),
-                  sidebarLayout(fluid=F,
-                     sidebarPanel(fluid=F,
-                      selectInput('City','Potential Awaygoing Destination',
+                  fixedRow(column(width=3,
+                      selectInput('City','Potential Awaygoing City',
                                   with(arrange(joind.not.awaygoing, city), 
                                        paste(city, state, sep=', ')), selected='St. Louis, MO-IL'),
                       imageOutput('tampa'),
@@ -19,7 +18,7 @@ shinyUI(
                           tabPanel("City Rankings", uiOutput("city.name"), uiOutput("rankings"), 
                                    tags$h3('Similar Cities'),
                                    uiOutput('cluster.text'),
-                                   uiOutput('cluster')), 
+                                   uiOutput('cluster'),br(),br()), 
                           tabPanel("US Map", uiOutput('map.text'), tags$hr(), imageOutput('map')),
                           tabPanel("Predicted Awaygoing Cities", HTML("<h2><strong>Awaygoing Cities of the Future</strong></h2>"), uiOutput("rf.text"), 
                                    tags$hr(), uiOutput("random.forest"), tags$br(), tags$br())

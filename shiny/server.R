@@ -41,7 +41,7 @@ shinyServer(function(input, output) {
   output$rankings <- renderUI({
     df <- filter(joind.not.awaygoing, city.full == input$City)
     hate.df <- filter(hate.per.city, city == input$City)
-    HTML(paste("<h3>Awaygoing Suitability Ranking: <strong><span style=\"color:", kpi.color(df$rank), "\">",
+    HTML(paste("<h3>Awaygoing Suitability Ranking<strong><span style='font-family:Arial'>:</span> <span style=\"color:", kpi.color(df$rank), "\">",
                df$rank, "</span></strong></h3>", sep=''),
          paste("<h5>Arts: <strong><span style=\"color:", kpi.color(df$arts.rank), "\">",
                df$arts.rank, "</span></strong></h5>", sep=''),
