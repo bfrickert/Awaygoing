@@ -3,11 +3,12 @@ source('helper.R')
 
 shinyUI(
   fixedPage(theme='bootstrap.css',
-            tags$div(class="title", tags$h1("Awaygoing Data Analytics")),
+            tags$h1(class="title","Awaygoing Data Analytics"),
             imageOutput('banner'),
                   br(),br(),br(),br(),br(),
                   fixedRow(column(width=4,
-                      selectInput('City','Potential Awaygoing City',
+                                  tags$h3('Potential Awaygoing City'),
+                      selectInput('City', label=NULL,
                                   with(arrange(joind.not.awaygoing, city), 
                                        paste(city, state, sep=', ')), selected='St. Louis, MO-IL'),
                       imageOutput('tampa'),

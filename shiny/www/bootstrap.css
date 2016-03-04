@@ -1,16 +1,14 @@
 @import url("MyFontsWebfontsKit.css");
 @import url("NewsLab.css");
 
-.title {
-	color:green;
-}
-
 h1, h2, h3, h4 { 
 	font-family: RBNo21a-BlackDEMO; 
 	font-weight: normal; 
 	font-style: normal;
-	color:green; 
+	color:black; 
 }
+
+h1.title {color:green;}
 
 body, h5 { 
 	font-family: Newslab; 
