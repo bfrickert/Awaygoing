@@ -20,6 +20,10 @@ shinyServer(function(input, output) {
     HTML(paste("<h2><strong>", input$City, "</strong></h2>"))
   })
   
+  output$map.city.name <- renderUI({
+    HTML(paste("<h2><strong>", input$City, "</strong></h2>"))
+  })
+  
   output$map.text <- renderUI({
     df <- filter(joind.not.awaygoing, city.full == input$City)
     
@@ -41,7 +45,7 @@ shinyServer(function(input, output) {
   output$rankings <- renderUI({
     df <- filter(joind.not.awaygoing, city.full == input$City)
     hate.df <- filter(hate.per.city, city == input$City)
-    HTML(paste("<h3>Awaygoing Suitability Ranking: <strong><span style=\"color:", kpi.color(df$rank), "\">",
+    HTML(paste("<h3>Awaygoing Suitability Ranking<strong><span style='font-family:Arial'>:</span> <span style=\"color:", kpi.color(df$rank), "\">",
                df$rank, "</span></strong></h3>", sep=''),
          paste("<h5>Arts: <strong><span style=\"color:", kpi.color(df$arts.rank), "\">",
                df$arts.rank, "</span></strong></h5>", sep=''),
@@ -65,8 +69,8 @@ shinyServer(function(input, output) {
                round(df$sf.dists, 2), " miles</span></strong></h5>", sep=''),
          paste("<h5>Distance from Washington, DC: <strong><span style=\"color:green\">",
                round(df$dc.dists, 2), " miles</span></strong></h5>", sep=''),
-         paste("<h5>According to the <strong>Southern Poverty Law Center</strong>, as of 2014, there were <strong><span style=\"color:red\">",
-               nrow(hate.df), " hate groups</span></strong> operating within 100 miles of 
+         paste("<h5>According to the <strong>Southern Poverty Law Center</strong>, as of 2014, ",
+               hate.kpi.color(df$hate.cnt), " operating within 100 miles of 
                <strong>", input$City,
               "</strong>.</h5>", sep='')
     )
