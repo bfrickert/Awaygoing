@@ -1,7 +1,14 @@
-body {
-    background-image: url(/home/ubuntu/awaygoing/shiny/viz/tampa.slice.jpg");
-    background-color: white;
+@import url("MyFontsWebfontsKit.css");
+@import url("NewsLab.css");
+
+h1, h2, h3, h4 { 
+	font-family: RBNo21a-BlackDEMO; 
+	font-weight: normal; 
+	font-style: normal; 
 }
-table {
-    border-collapse:collapse;
+
+body, h5 { 
+	font-family: Newslab; 
+	font-weight: normal; 
+	font-style: normal; 
 }

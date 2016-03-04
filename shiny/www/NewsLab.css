@@ -1,0 +1,28 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3181503, 2016-03-04T13:29:12-0500
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: Newslab by Latinotype
+ * URL: http://www.myfonts.com/fonts/latinotype/newslab/regular/
+ * Copyright: Copyright (c) 2014 by Daniel Hernandez. All rights reserved.
+ * Licensed pageviews: 1
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=3181503
+ * 
+ * © 2016 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/308bbf");
+
+  
+@font-face {font-family: 'Newslab';src: url('webfonts/308BBF_0_0.eot');src: url('webfonts/308BBF_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/308BBF_0_0.woff2') format('woff2'),url('webfonts/308BBF_0_0.woff') format('woff'),url('webfonts/308BBF_0_0.ttf') format('truetype');}
+ 
