@@ -37,9 +37,7 @@ shinyServer(function(input, output) {
     file.name <- strsplit(input$City, ', ')
     list(src = paste('./viz/maps/', file.name[[1]][1],'.', file.name[[1]][2], '.png', sep=''),
          alt = input$City,
-         width=650,
-         height=500)
-    
+         width=400)
   }, deleteFile = FALSE)
   
   output$rankings <- renderUI({
