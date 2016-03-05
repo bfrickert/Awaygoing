@@ -1,5 +1,5 @@
 library(pacman)
-p_load(tourr,dplyr,caret, ggplot2, ggmap, RSocrata)
+p_load(tourr,dplyr,caret, ggplot2, ggmap, RSocrata,plyr)
 
 # Get Places Rated data and join it to cities and states
 place.names <- read.table('data/place.names.tsv',sep='\t',stringsAsFactors = F, header=T)
@@ -124,13 +124,10 @@ joind.not.awaygoing$rank <- c(1:nrow(joind.not.awaygoing))
 
 # Prepare US maps for each city, showing distance from SF and DC
 create.map <- function(c, s) {
-  print(c)
-  print(s)
-  file.name <-paste('shiny/viz/maps/',c, '.',s,'.png', sep='')
-  ggmap(map)
+  file.name <-paste('shiny/viz/maps/',c, '.',s,'.jpg', sep='')
   sf <- filter(joind, city=='San Francisco' | (city==c & state==s))
   dc <- filter(joind, city=='Washington' | (city==c & state==s))
-  mp <- ggmap(map)+geom_point(data=joind.not.awaygoing,alpha = .7, aes(x=long, y=lat,size =pop, fill=rank))+
+  mp <- ggmap(map, extent="device",padding=0)+geom_point(data=joind.not.awaygoing,alpha = .7, aes(x=long, y=lat,size =pop, fill=rank))+
     ggtitle("Unspoiled Potential Awaygoing Cities") +
     geom_point(data=sf, aes(x=long, y=lat),color="black") + geom_line(data=sf, aes(x=long, y=lat), color="green", size=2)+
     geom_point(data=dc, aes(x=long, y=lat),color="black") + geom_line(data=dc, aes(x=long, y=lat), color="cyan", size=2) +
@@ -138,19 +135,22 @@ create.map <- function(c, s) {
           axis.text.y=element_blank(),axis.ticks=element_blank(),
           axis.title.x=element_blank(),
           axis.title.y=element_blank(),legend.position="none",
-          panel.background=element_blank(),panel.border=element_blank(),panel.grid.major=element_blank(),
-          panel.grid.minor=element_blank(),plot.background=element_blank())
-  
-  
-    ggsave(file.name, plot=mp)
+          panel.background=element_blank(),
+          panel.border=element_blank(),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),plot.background=element_blank(),
+            plot.margin=unit(c(0,0,0,0),"mm"))
+
+    ggsave(file.name, plot=mp, device='jpeg')
   }
 
 # Only needs to be run if you are re-creating all the maps
 ########################
-# map<- get_map(location = 'US', zoom = 4)
-# apply(select(joind.not.awaygoing, city, state), 1, function(x){
-#   create.map(x[1], x[2])
-# })
+
+map<- get_map(location = 'US', zoom = 4,crop=F)
+apply(select(joind.not.awaygoing, city, state), 1, function(x){
+  create.map(x[1], x[2])
+})
 
 
 # Tabulate rankings by Places Rated data
